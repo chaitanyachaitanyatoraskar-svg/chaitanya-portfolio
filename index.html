@@ -4,248 +4,232 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chaitanya Toraskar | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        
-        .gradient-text { 
-            background: linear-gradient(90deg, #6366f1, #a855f7, #6366f1); 
-            background-size: 200% auto;
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite;
-        }
-
-        /* Unified Highlight Color for CGPA/Marks */
-        .stat-highlight {
-            color: #818cf8;
-            font-weight: 700;
-        }
-
-        @keyframes shimmer { to { background-position: 200% center; } }
-
-        .float-anim { animation: float 6s ease-in-out infinite; }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .skill-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(99, 102, 241, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        #backToTop {
-            display: none;
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 99;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, rgba(15, 23, 42, 0) 70%);
         }
     </style>
 </head>
-<body class="bg-[#0a0a0c] text-slate-200">
+<body class="bg-[#0f172a] text-slate-200 overflow-x-hidden">
 
-    <button id="backToTop" onclick="scrollToTop()" class="p-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full shadow-lg shadow-indigo-500/30 active:scale-90">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-    </button>
+    <div id="snow-container"></div>
 
-    <nav class="fixed w-full z-50 bg-[#0a0a0c]/80 backdrop-blur-lg border-b border-white/5">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <span class="text-xl font-extrabold tracking-tight gradient-text">CT.</span>
-            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-400">
-                <a href="#about" class="hover:text-white transition">About</a>
-                <a href="#toolkit" class="hover:text-white transition">Toolkit</a>
-                <a href="#academics" class="hover:text-white transition">Academics</a>
-                <a href="#contact" class="px-4 py-2 bg-white text-black rounded-lg hover:invert transition">Contact Me</a>
+    <nav class="fixed w-full z-50 px-6 py-4 flex justify-between items-center glass-nav">
+        <div class="text-xl font-bold italic tracking-tighter text-white">CT.TECH</div>
+        
+        <div class="hidden md:flex items-center gap-8">
+            <div class="flex gap-6 text-sm font-medium tracking-wide">
+                <a href="#toolkit" class="hover:text-indigo-400 transition">Toolkit</a>
+                <a href="#projects" class="hover:text-indigo-400 transition">Projects</a>
+                <a href="#academics" class="hover:text-indigo-400 transition">Journey</a>
             </div>
+            <a href="mailto:chaitanyachaitanyatoraskar@gmail.com" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-full text-xs font-bold text-white transition shadow-lg shadow-indigo-500/20">
+                Contact Me
+            </a>
+        </div>
+
+        <div class="md:hidden text-white">
+            <a href="mailto:chaitanyachaitanyatoraskar@gmail.com" class="text-xs font-bold bg-indigo-600 px-3 py-1 rounded-full">Contact</a>
         </div>
     </nav>
 
-    <section class="min-h-screen flex items-center pt-20 px-6">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <div data-aos="fade-right" data-aos-duration="1000">
-                <span class="px-3 py-1 text-xs font-bold tracking-widest text-indigo-400 border border-indigo-400/30 rounded-full uppercase">BSc-IT Student</span>
-                <h1 class="text-5xl md:text-7xl font-extrabold mt-6 leading-tight">
-                    Chaitanya <span class="gradient-text">Toraskar</span>
+    <section class="min-h-screen flex items-center justify-center pt-20 px-6 hero-gradient relative overflow-hidden">
+        <div class="max-w-4xl text-center w-full z-10" data-aos="fade-up" data-aos-duration="1200">
+            
+            <span class="px-3 py-1 text-[10px] font-bold tracking-widest text-indigo-400 border border-indigo-400/30 rounded-full uppercase mb-8 inline-block">Second Year BSc-IT Student</span>
+            
+            <div class="relative w-full max-w-2xl mx-auto">
+                <svg class="absolute top-1/2 left-0 w-full h-32 -translate-y-1/2 pointer-events-none opacity-80" viewBox="0 0 400 100" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#4f46e5;stop-opacity:0" />
+                            <stop offset="50%" style="stop-color:#a855f7;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#4f46e5;stop-opacity:0" />
+                        </linearGradient>
+                    </defs>
+                    <path class="string-path" d="M0,50 Q100,10 200,50 T400,50" fill="none" stroke="url(#grad1)" stroke-width="2" />
+                </svg>
+
+                <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-none relative z-10 text-white">
+                    Chaitanya <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Toraskar</span>
                 </h1>
-                <p class="mt-6 text-slate-400 text-lg leading-relaxed max-w-lg">
-                    A tech-enthusiast bridging the gap between <span class="text-white">clean code</span> and <span class="text-white">creative design</span>.
-                </p>
-                <div class="mt-10 flex flex-wrap gap-4">
-                    <a href="#toolkit" class="px-8 py-3 bg-indigo-600 rounded-xl font-semibold hover:bg-indigo-500 transition shadow-lg shadow-indigo-500/20 active:scale-95">View Toolkit</a>
-                    <a href="mailto:chaitanyachaitanyatoraskar@gmail.com" class="px-8 py-3 glass rounded-xl font-semibold hover:bg-white/10 transition active:scale-95">Email Me</a>
+            </div>
+
+            <p class="mt-8 text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                Specializing in <span class="text-indigo-400">Django</span>, <span class="text-indigo-400">Python</span>, and <span class="text-indigo-400">MySQL</span>.
+                Bridging the gap between technical logic and creative design.
+            </p>
+
+            <div class="mt-12 flex flex-wrap justify-center gap-5">
+                <a href="#projects" class="px-10 py-4 bg-indigo-600 rounded-2xl font-bold hover:bg-indigo-500 transition shadow-2xl shadow-indigo-500/20 active:scale-95 text-white">View Projects</a>
+                <a href="#academics" class="px-10 py-4 bg-white/5 border border-white/10 rounded-2xl font-bold hover:bg-white/10 transition active:scale-95 text-white">My Journey</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="toolkit" class="py-16 max-w-6xl mx-auto px-6 border-b border-white/5">
+        <div class="text-center mb-10" data-aos="fade-up">
+            <h2 class="text-2xl font-bold italic text-white">Technical Toolkit</h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4" data-aos="fade-up">
+            <div class="glass p-6 rounded-2xl text-center group hover:border-indigo-500/50 transition">
+                <div class="text-indigo-400 font-bold text-lg mb-1 group-hover:scale-110 transition-transform">Python & Django</div>
+                <div class="text-slate-500 text-[10px] uppercase tracking-widest">Backend Logic</div>
+            </div>
+            <div class="glass p-6 rounded-2xl text-center group hover:border-indigo-500/50 transition">
+                <div class="text-indigo-400 font-bold text-lg mb-1 group-hover:scale-110 transition-transform">MySQL</div>
+                <div class="text-slate-500 text-[10px] uppercase tracking-widest">Database Schema</div>
+            </div>
+            <div class="glass p-6 rounded-2xl text-center group hover:border-indigo-500/50 transition">
+                <div class="text-indigo-400 font-bold text-lg mb-1 group-hover:scale-110 transition-transform">Java</div>
+                <div class="text-slate-500 text-[10px] uppercase tracking-widest">OOP Concepts</div>
+            </div>
+            <div class="glass p-6 rounded-2xl text-center group hover:border-purple-500/50 transition">
+                <div class="text-purple-400 font-bold text-lg mb-1 group-hover:scale-110 transition-transform">Design Tools</div>
+                <div class="text-slate-500 text-[10px] uppercase tracking-widest">Video & Graphics</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-24 max-w-6xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <div data-aos="fade-right">
+                <h2 class="text-4xl font-bold italic text-white">Featured Projects</h2>
+                <p class="text-slate-400 mt-2">Turning academic theory into functional code.</p>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-10">
+            <div class="glass p-10 rounded-[2.5rem] group hover:bg-white/[0.04] transition duration-500" data-aos="fade-up">
+                <div class="mb-8 flex justify-between items-center">
+                    <div class="p-4 bg-indigo-500/10 rounded-2xl text-indigo-400">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    </div>
+                    <span class="text-[10px] font-black tracking-widest text-indigo-400 border border-indigo-400/20 px-3 py-1 rounded-full">LIVE REPO</span>
+                </div>
+                <h3 class="text-3xl font-bold mb-4 text-white">Student Management System</h3>
+                <p class="text-slate-400 leading-relaxed mb-8">A full-fledged web application built using Django and Bootstrap. Features clean UI, MVC architecture, and full CRUD operations.</p>
+                <a href="https://github.com/chaitanyachaitanyatoraskar-svg/Student-Management-System" target="_blank" class="flex items-center gap-3 text-indigo-400 font-bold group-hover:gap-5 transition-all">
+                    View Project Code <span>→</span>
+                </a>
+            </div>
+
+            <div class="glass p-10 rounded-[2.5rem] group hover:bg-white/[0.04] transition duration-500 opacity-80" data-aos="fade-up" data-aos-delay="200">
+                <div class="mb-8 flex justify-between items-center">
+                    <div class="p-4 bg-purple-500/10 rounded-2xl text-purple-400">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                    <span class="text-[10px] font-black tracking-widest text-purple-400 border border-purple-400/20 px-3 py-1 rounded-full">DESIGN</span>
+                </div>
+                <h3 class="text-3xl font-bold mb-4 text-white">Creative Portfolio Vault</h3>
+                <p class="text-slate-400 leading-relaxed mb-8">Curated gallery of graphic design and video editing projects from various certifications.</p>
+                <span class="text-slate-500 font-bold italic">Work in Progress 🚀</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="academics" class="py-24 max-w-4xl mx-auto px-6">
+        <div class="mb-16" data-aos="fade-up">
+            <h2 class="text-3xl font-bold italic text-white">Academic Journey</h2>
+            <p class="text-slate-400 mt-2">The path of my education.</p>
+        </div>
+        <div class="relative border-l border-white/10 ml-4 md:ml-6 space-y-12">
+            <div class="relative pl-8 md:pl-12" data-aos="fade-left">
+                <span class="absolute -left-[5px] top-0 h-3 w-3 rounded-full bg-indigo-500 ring-4 ring-[#0f172a] shadow-[0_0_10px_rgba(99,102,241,0.5)]"></span>
+                <div class="glass p-6 rounded-2xl border-l-4 border-l-indigo-500">
+                    <span class="text-xs font-bold text-indigo-400 tracking-widest uppercase mb-1 block">Present</span>
+                    <h3 class="text-xl font-bold text-white">B.Sc. Information Technology</h3>
+                    <p class="text-slate-400 text-sm mt-1">University of Mumbai</p>
+                    <div class="mt-4 inline-block bg-indigo-500/10 px-3 py-1 rounded-lg border border-indigo-500/20">
+                        <span class="text-indigo-300 font-bold text-sm">CGPA: 7.25</span>
+                    </div>
                 </div>
             </div>
-            <div class="relative group float-anim" data-aos="zoom-in">
-                <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-60 transition duration-1000"></div>
-                <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-[#16161a]">
-                    <img src="IMG_4135(1).jpg" alt="Chaitanya" class="w-full h-auto grayscale hover:grayscale-0 transition duration-700">
+            <div class="relative pl-8 md:pl-12" data-aos="fade-left" data-aos-delay="100">
+                <span class="absolute -left-[5px] top-0 h-3 w-3 rounded-full bg-slate-500 ring-4 ring-[#0f172a]"></span>
+                <div class="glass p-6 rounded-2xl opacity-90">
+                    <span class="text-xs font-bold text-slate-500 tracking-widest uppercase mb-1 block">2024</span>
+                    <h3 class="text-xl font-bold text-white">Higher Secondary (12th Grade)</h3>
+                    <div class="mt-4 inline-block bg-white/5 px-3 py-1 rounded-lg">
+                        <span class="text-slate-300 font-bold text-sm">Biology: 87%</span>
+                    </div>
+                </div>
+            </div>
+            <div class="relative pl-8 md:pl-12" data-aos="fade-left" data-aos-delay="200">
+                <span class="absolute -left-[5px] top-0 h-3 w-3 rounded-full bg-slate-500 ring-4 ring-[#0f172a]"></span>
+                <div class="glass p-6 rounded-2xl opacity-80">
+                    <span class="text-xs font-bold text-slate-500 tracking-widest uppercase mb-1 block">2022</span>
+                    <h3 class="text-xl font-bold text-white">Secondary School (10th Grade)</h3>
+                    <div class="mt-4 inline-block bg-white/5 px-3 py-1 rounded-lg">
+                        <span class="text-slate-300 font-bold text-sm">English: 91%</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="toolkit" class="py-24 max-w-6xl mx-auto px-6">
-        <h2 class="text-3xl font-bold mb-12" data-aos="fade-up">Technical Toolkit</h2>
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="glass p-6 rounded-2xl skill-card" data-aos="fade-up" data-aos-delay="100">
-                <h4 class="text-indigo-400 font-bold mb-2 uppercase text-[10px] tracking-widest">Mobile & Web</h4>
-                <ul class="space-y-2 text-sm">
-                    <li>Flutter & Java</li>
-                    <li>HTML5 & CSS3</li>
-                    <li>JavaScript & Python</li>
-                </ul>
+    <section id="certifications" class="py-24 max-w-6xl mx-auto px-6 border-t border-white/5">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-12" data-aos="fade-right">
+            <div>
+                <h2 class="text-3xl font-bold italic text-white">Key Certifications</h2>
             </div>
-            <div class="glass p-6 rounded-2xl skill-card" data-aos="fade-up" data-aos-delay="200">
-                <h4 class="text-purple-400 font-bold mb-2 uppercase text-[10px] tracking-widest">Creative Tools</h4>
-                <ul class="space-y-2 text-sm">
-                    <li>Graphic Designing</li>
-                    <li>Video Editing</li>
-                    <li>Advanced MS Excel</li>
-                </ul>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="glass p-6 rounded-2xl flex items-center gap-4 hover:bg-white/5 transition" data-aos="fade-up">
+                <div class="h-12 w-12 bg-indigo-500/20 rounded-full flex items-center justify-center text-indigo-400 font-bold">01</div>
+                <div><h3 class="text-lg font-bold text-white">Graphic Designing</h3></div>
             </div>
-            <div class="glass p-6 rounded-2xl skill-card" data-aos="fade-up" data-aos-delay="300">
-                <h4 class="text-pink-400 font-bold mb-2 uppercase text-[10px] tracking-widest">Data</h4>
-                <ul class="space-y-2 text-sm text-white font-medium">
-                    <li>MySQL Database</li>
-                    <li>Problem Solving</li>
-                </ul>
+            <div class="glass p-6 rounded-2xl flex items-center gap-4 hover:bg-white/5 transition" data-aos="fade-up" data-aos-delay="100">
+                <div class="h-12 w-12 bg-purple-500/20 rounded-full flex items-center justify-center text-purple-400 font-bold">02</div>
+                <div><h3 class="text-lg font-bold text-white">Video Editing Pro</h3></div>
             </div>
-            <div class="glass p-6 rounded-2xl skill-card" data-aos="fade-up" data-aos-delay="400">
-                <h4 class="text-emerald-400 font-bold mb-2 uppercase text-[10px] tracking-widest">Soft Skills</h4>
-                <ul class="space-y-2 text-sm">
-                    <li>Effective Comm.</li>
-                    <li>Teamwork</li>
-                </ul>
+            <div class="glass p-6 rounded-2xl flex items-center gap-4 hover:bg-white/5 transition" data-aos="fade-up" data-aos-delay="200">
+                <div class="h-12 w-12 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400 font-bold">03</div>
+                <div><h3 class="text-lg font-bold text-white">Adv. Microsoft Excel</h3></div>
+            </div>
+            <div class="glass p-6 rounded-2xl flex items-center gap-4 hover:bg-white/5 transition" data-aos="fade-up" data-aos-delay="300">
+                <div class="h-12 w-12 bg-blue-500/20 rounded-full flex items-center justify-center text-blue-400 font-bold">04</div>
+                <div><h3 class="text-lg font-bold text-white">MSCIT</h3></div>
             </div>
         </div>
     </section>
 
-    <section id="academics" class="py-24 bg-[#111115]">
-        <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-3xl font-bold mb-12" data-aos="fade-right">Academic Journey</h2>
-            <div class="grid md:grid-cols-2 gap-12 items-start">
-                <div class="space-y-12 border-l-2 border-white/5 pl-8 ml-2">
-                    <div class="relative" data-aos="fade-left">
-                        <div class="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.5)]"></div>
-                        <h4 class="font-bold text-xl">BSc-IT (First Year)</h4>
-                        <p class="stat-highlight">CGPA: 7.25</p>
-                    </div>
-                    <div class="relative" data-aos="fade-left" data-aos-delay="100">
-                        <div class="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-slate-600"></div>
-                        <h4 class="font-bold text-xl text-slate-300">12th Standard</h4>
-                        <p class="stat-highlight">Biology: 87%</p>
-                    </div>
-                    <div class="relative" data-aos="fade-left" data-aos-delay="200">
-                        <div class="absolute -left-[41px] top-1 w-4 h-4 rounded-full bg-slate-800"></div>
-                        <h4 class="font-bold text-xl text-slate-400">10th Standard</h4>
-                        <p class="stat-highlight">English: 91%</p>
-                    </div>
-                </div>
-                <div class="glass p-8 rounded-3xl" data-aos="zoom-in">
-                    <h3 class="text-xl font-bold mb-6">Key Certifications</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-xs">MSCIT</span>
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-xs">Graphic Designing</span>
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-xs">Video Editing</span>
-                        <span class="px-4 py-2 bg-white/5 rounded-lg text-xs">Advanced MS Excel</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <footer id="contact" class="py-20 text-center border-t border-white/5">
+        <p class="text-slate-500 text-sm tracking-widest uppercase mb-8">Connect With Me</p>
+        
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+            <a href="https://github.com/chaitanyachaitanyatoraskar-svg" target="_blank" class="flex items-center gap-2 px-6 py-3 glass rounded-xl hover:bg-white/10 transition group">
+                <svg class="w-5 h-5 fill-white group-hover:fill-indigo-400 transition" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.041-1.416-4.041-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                <span class="text-sm font-bold text-white group-hover:text-indigo-400 transition">GitHub</span>
+            </a>
+            
+            <a href="https://x.com/ChaitanyaToras3" target="_blank" class="flex items-center gap-2 px-6 py-3 glass rounded-xl hover:bg-white/10 transition group">
+                <svg class="w-5 h-5 fill-white group-hover:fill-indigo-400 transition" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <span class="text-sm font-bold text-white group-hover:text-indigo-400 transition">X</span>
+            </a>
 
-    <footer id="contact" class="py-24 border-t border-white/5 text-center" data-aos="fade-up">
-        <h2 class="text-4xl font-extrabold mb-4">Let's work together.</h2>
-        <a href="mailto:chaitanyachaitanyatoraskar@gmail.com" class="text-indigo-400 text-xl hover:tracking-widest transition-all duration-500 break-all px-6 font-semibold">
-            chaitanyachaitanyatoraskar@gmail.com
-        </a>
+            <a href="https://www.linkedin.com/in/chaitanya-toraskar1122/" target="_blank" class="flex items-center gap-2 px-6 py-3 glass rounded-xl hover:bg-white/10 transition group">
+                <svg class="w-5 h-5 fill-white group-hover:fill-indigo-400 transition" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                <span class="text-sm font-bold text-white group-hover:text-indigo-400 transition">LinkedIn</span>
+            </a>
+        </div>
+
+        <div class="text-slate-600 text-[10px] tracking-[0.2em] uppercase font-bold">
+            &copy; 2026 Chaitanya Toraskar | Built with Django & Code
+        </div>
     </footer>
 
+    <button id="scrollTopBtn" class="fixed bottom-8 right-8 p-4 glass rounded-full text-indigo-400 shadow-xl opacity-0 translate-y-10 transition-all duration-300 z-50 hover:scale-110 group pointer-events-none">
+        <svg class="w-6 h-6 stroke-current group-hover:-translate-y-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ once: true });
-        const btn = document.getElementById("backToTop");
-        window.onscroll = function() {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                btn.style.display = "block";
-            } else {
-                btn.style.display = "none";
-            }
-        };
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
+    <script src="script.js"></script>
+    <script>AOS.init({ once: true });</script>
 </body>
 </html>
-<section id="projects" class="py-24 max-w-6xl mx-auto px-6">
-    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-        <div data-aos="fade-right">
-            <h2 class="text-3xl font-bold italic text-white">Featured Projects</h2>
-            <p class="text-slate-400 mt-2">Technical solutions developed during my BSc-IT journey.</p>
-        </div>
-        <div data-aos="fade-left">
-            <a href="https://github.com/chaitanyachaitanyatoraskar-svg" target="_blank" class="flex items-center gap-2 px-5 py-2 glass rounded-full text-sm font-semibold text-white hover:bg-white/10 transition group">
-                Explore GitHub
-                <span class="group-hover:translate-x-1 transition-transform">→</span>
-            </a>
-        </div>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-8">
-        <div class="glass p-8 rounded-3xl skill-card group" data-aos="fade-up">
-            <div class="flex justify-between items-start mb-6">
-                <div class="p-3 bg-indigo-500/10 rounded-2xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                </div>
-                <span class="text-[10px] font-bold tracking-widest text-indigo-400 uppercase border border-indigo-400/20 px-2 py-1 rounded">Python + Django</span>
-            </div>
-            <h3 class="text-2xl font-bold text-white mb-3">Student Management System</h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                A full-fledged web application following MVC architecture. Allows users to add, view, edit, and delete student records with a clean, responsive Bootstrap UI.
-            </p>
-            <ul class="flex flex-wrap gap-2 mb-6 text-slate-300">
-                <li class="text-[10px] bg-white/5 px-2 py-1 rounded">Django Framework</li>
-                <li class="text-[10px] bg-white/5 px-2 py-1 rounded">Bootstrap 5</li>
-                <li class="text-[10px] bg-white/5 px-2 py-1 rounded">SQLite/MySQL</li>
-            </ul>
-            <a href="https://github.com/chaitanyachaitanyatoraskar-svg/Student-Management-System" target="_blank" class="text-indigo-400 text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
-                View Source Code <span>→</span>
-            </a>
-        </div>
-
-        <div class="glass p-8 rounded-3xl skill-card group" data-aos="fade-up" data-aos-delay="200">
-            <div class="flex justify-between items-start mb-6">
-                <div class="p-3 bg-purple-500/10 rounded-2xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                </div>
-                <span class="text-[10px] font-bold tracking-widest text-purple-400 uppercase border border-purple-400/20 px-2 py-1 rounded">Design & Media</span>
-            </div>
-            <h3 class="text-2xl font-bold text-white mb-3">Creative Portfolio Vault</h3>
-            <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                A curated digital gallery showcasing specialized work in Graphic Design and Video Editing.
-            </p>
-            <ul class="flex flex-wrap gap-2 mb-6 text-slate-300">
-                <li class="text-[10px] bg-white/5 px-2 py-1 rounded">Graphic Design</li>
-                <li class="text-[10px] bg-white/5 px-2 py-1 rounded">Video Production</li>
-            </ul>
-            <span class="text-slate-500 text-sm font-bold flex items-center gap-1">
-                Work in Progress 🚀
-            </span>
-        </div>
-    </div>
-</section>
