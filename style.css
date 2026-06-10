@@ -15,7 +15,7 @@
 
 .glass:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(99, 102, 241, 0.3);
+    border-color: var(--hover-border, rgba(99, 102, 241, 0.3));
     transform: translateY(-5px);
 }
 
