@@ -1,0 +1,26 @@
+{
+  "name": "chaitanyatoraskar",
+  "version": "1.0.0",
+  "description": "A personal CLI introduction and interactive resume for Chaitanya Toraskar",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "chaitanya": "./index.js",
+    "chaitanyatoraskar": "./index.js"
+  },
+  "keywords": [
+    "cli",
+    "resume",
+    "portfolio",
+    "chaitanya",
+    "chaitanyatoraskar",
+    "developer",
+    "software-engineer"
+  ],
+  "author": "Chaitanya Toraskar <chaitanyachaitanyatoraskar@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "ora": "^8.0.1"
+  }
+}

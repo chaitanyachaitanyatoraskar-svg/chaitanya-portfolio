@@ -1,307 +1,1163 @@
-/* Glassmorphism Navigation */
-.glass-nav {
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+/* ==========================================================================
+   CHAITANYA TORASKAR — PORTFOLIO STYLES
+   Exact aesthetic replica of Abhijith Jinnu design language
+   ========================================================================== */
+
+@font-face {
+    font-family: 'Saans';
+    src: url('saans.woff2') format('woff2');
+    font-weight: 100 900;
+    font-display: swap;
 }
 
-/* Glass Cards & Buttons */
-.glass {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(5px);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+:root {
+    --bg-color: #0c0c0c;
+    --text-primary: #f5f5f5;
+    --text-secondary: #8a8a8a;
+    --capsule-bg: #f16a4b;
+    --font-primary: 'Saans', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    --font-instrument-serif: 'Instrument Serif', Georgia, serif;
+    --font-inter: 'Saans', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
 }
 
-.glass:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--hover-border, rgba(99, 102, 241, 0.3));
-    transform: translateY(-5px);
-}
-
-/* --- THE STRING ANIMATION --- */
-.string-path {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: drawString 2s ease-out forwards;
-}
-
-@keyframes drawString {
-    to { stroke-dashoffset: 0; }
-}
-
-/* Global Snowfall Container */
-#snow-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 9999;
-    overflow: hidden;
-}
-
-/* Snowflake Styling */
-.snowflake {
-    position: absolute;
-    top: -10px;
-    background-color: #fff;
-    border-radius: 50%;
-    filter: blur(0.5px);
-    opacity: 0.8;
-    pointer-events: none;
-    animation: fall linear infinite;
-}
-
-@keyframes fall {
-    0% { transform: translateY(-10px); }
-    100% { transform: translateY(110vh); }
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
     scroll-behavior: smooth;
-    cursor: default;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
 }
 
-body::-webkit-scrollbar {
-    width: 8px;
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    min-height: 100vh;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-body::-webkit-scrollbar-track {
-    background: #0f172a;
+::selection {
+    background: var(--capsule-bg);
+    color: #fff;
 }
 
-body::-webkit-scrollbar-thumb {
-    background: #334155;
-    border-radius: 10px;
+/* Typography */
+.instrument-serif {
+    font-family: var(--font-instrument-serif), Georgia, serif !important;
+    font-weight: 400;
 }
 
-/* Show Scroll Button when Active */
-#scrollTopBtn.active {
+/* ==========================================================================
+   Raining Stars Container & Animation
+   Exact 4-point Diamond Sparkle Stars from Reference Image 3
+   ========================================================================== */
+.raining-stars-container {
+    pointer-events: none;
+    z-index: 1000;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.falling-star {
+    pointer-events: none;
+    position: fixed;
+    top: -40px;
+    z-index: 9999;
+    will-change: transform, opacity;
+    animation-name: starFall;
+    animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation-fill-mode: forwards;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.falling-star.white {
+    color: #ffffff;
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.85));
+}
+
+.falling-star.coral {
+    color: #f16a4b;
+    filter: drop-shadow(0 0 8px rgba(241, 106, 75, 0.9));
+}
+
+@keyframes starFall {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    10% {
+        opacity: 1;
+    }
+    82% {
+        opacity: 0.95;
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(var(--drift-x, 0px), 115vh, 0) rotate(var(--rot, 360deg));
+    }
+}
+
+/* ==========================================================================
+   Top Navigation & Center ☆ Star Button Trigger
+   ========================================================================== */
+.top-nav {
+    z-index: 20;
+    justify-content: center;
+    width: 100%;
+    padding: 44px 0 24px 0;
+    display: flex;
+}
+
+nav {
+    align-items: center;
+    gap: 36px;
+    display: flex;
+}
+
+.nav-link {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    opacity: 0.7;
+}
+
+.nav-link:hover {
     opacity: 1;
-    transform: translateY(0);
+}
+
+.nav-link.active {
+    opacity: 1;
+    text-shadow: 0 0 8px rgba(245, 245, 245, 0.3);
+    font-weight: 500;
+}
+
+/* Center Star Trigger Button (From Reference Image 3) */
+.nav-star-trigger {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 50%;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nav-star-trigger:hover {
+    transform: scale(1.25) rotate(15deg);
+    color: var(--capsule-bg);
+}
+
+.nav-star-trigger:active {
+    transform: scale(0.9) rotate(-15deg);
+}
+
+.nav-star-trigger.pulsing {
+    animation: starPulse 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+    color: var(--capsule-bg);
+}
+
+@keyframes starPulse {
+    0% { transform: scale(1) rotate(0deg); }
+    40% { transform: scale(1.45) rotate(72deg); }
+    100% { transform: scale(1) rotate(360deg); }
+}
+
+.nav-star-trigger svg {
+    display: block;
+}
+
+/* ==========================================================================
+   Content Area & Sections
+   ========================================================================== */
+.content-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 220px; /* Ample room so bottom capsule never covers content */
+}
+
+.section-container {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.section-title-wrapper {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 1.45rem;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    margin: 0;
+}
+
+.section-title.instrument-serif {
+    font-size: 1.85rem;
+    letter-spacing: -0.03em;
+}
+
+.title-sparkle {
+    color: var(--capsule-bg);
+    font-size: 1.25rem;
+    vertical-align: middle;
+}
+
+.section-subtitle,
+.section-sub-desc {
+    color: #9c9c9c;
+    font-size: 1.02rem;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
+
+/* Filter Capsule Buttons (Matching Image 3 & Reference Site) */
+.filter-capsule {
+    background-color: var(--capsule-bg);
+    border-radius: 64px;
+    padding: 6px 12px;
+    display: inline-flex;
+    gap: 4px;
+    margin-top: 16px;
+    box-shadow: 0 4px 16px rgba(241, 106, 75, 0.25);
+}
+
+.filter-pill {
+    background: transparent;
+    border: none;
+    color: #fff;
+    border-radius: 9999px;
+    padding: 7px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+    outline: none;
+}
+
+.filter-pill:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.filter-pill.active {
+    background-color: rgba(255, 255, 255, 0.22);
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   Hero Section & Interactive Character Avatar
+   ========================================================================== */
+.hero-section {
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    display: flex;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.hero-name-curve {
+    z-index: 2;
+    pointer-events: none;
+    margin-bottom: -94px; /* Sits right atop the avatar */
+    animation: 0.5s ease-out both fadeIn;
+}
+
+.curve-svg {
+    max-width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.hero-avatar {
+    z-index: 1;
+}
+
+.avatar-wrapper {
+    background-color: var(--capsule-bg); /* Terracotta #f16a4b */
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 122px;
+    height: 122px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(241, 106, 75, 0.35);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.avatar-wrapper:hover,
+.avatar-wrapper.active {
+    transform: scale(1.08) rotate(-1deg);
+    box-shadow: 0 12px 36px rgba(241, 106, 75, 0.5), 0 0 0 3px var(--capsule-bg);
+}
+
+.avatar-img,
+.avatar-blush-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.avatar-blush-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.35s ease;
+    opacity: 0;
+}
+
+.avatar-wrapper:hover .avatar-blush-img,
+.avatar-wrapper.active .avatar-blush-img {
+    opacity: 1;
+}
+
+.hero-subtitle {
+    color: var(--text-primary);
+    margin-top: 24px;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+}
+
+.stagger-container {
+    display: inline-block;
+}
+
+.stagger-char {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(10px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stagger-char.visible {
+    opacity: 1;
+    filter: blur(0px);
+}
+
+/* ==========================================================================
+   CLI Command Badge (Exact abhijithjinnu.in component & speech notification)
+   ========================================================================== */
+.more-section {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 18px;
+    display: flex;
+    position: relative;
+}
+
+.more-command-wrap {
+    color: var(--text-primary);
+    letter-spacing: .02em;
+    background: #1e1e1ef2;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    align-items: center;
+    gap: 0;
+    padding: 11px 18px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: .96rem;
+    display: inline-flex;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
+    user-select: none;
+}
+
+.more-command-wrap:hover {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: #252525;
+    transform: translateY(-1px);
+}
+
+.more-command {
+    align-items: center;
+    gap: 8px;
+    display: inline-flex;
+}
+
+.more-prompt {
+    color: var(--capsule-bg);
+    font-weight: 500;
+}
+
+.more-command code {
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--text-primary);
+}
+
+.more-copy-btn {
+    color: var(--text-secondary);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 12px;
+    padding: 6px;
+    transition: color .2s, background .2s;
+    display: inline-flex;
+}
+
+.more-copy-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.more-copy-notification {
+    position: absolute;
+    right: -176px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #1a1a1a;
+    color: var(--text-primary);
+    border: 1px solid var(--capsule-bg);
+    border-radius: 18px;
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 100;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+    font-family: var(--font-inter);
+}
+
+.more-copy-notification:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -7px;
+    transform: translateY(-50%);
+    border: 7px solid transparent;
+    border-right-color: var(--capsule-bg);
+    border-left: none;
+    width: 0;
+    height: 0;
+}
+
+.more-copy-notification:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-right-color: #1a1a1a;
+    border-left: none;
+    width: 0;
+    height: 0;
+    z-index: 1;
+}
+
+.more-copy-notification.show {
+    opacity: 1;
+    transform: translateY(-50%) translateX(6px);
+}
+
+.hero-description {
+    width: 100%;
+    max-width: 580px;
+    color: #b8b8b8;
+    margin-top: 32px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    text-align: center;
+}
+
+/* ==========================================================================
+   Highlights / Projects
+   ========================================================================== */
+.highlights-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.highlight-card {
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.25s, transform 0.25s, opacity 0.3s;
+}
+
+.highlight-card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.highlight-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.highlight-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--capsule-bg);
+    font-weight: 600;
+}
+
+.highlight-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.link-arrow {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.link-arrow:hover {
+    color: var(--capsule-bg);
+}
+
+.link-sep {
+    color: #444;
+    font-size: 0.8rem;
+}
+
+.highlight-title {
+    font-size: 1.7rem;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    margin-bottom: 10px;
+}
+
+.highlight-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 18px;
+}
+
+.highlight-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.highlight-pills span {
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    background: #1c1c1c;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 9999px;
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   Experiences (Exact Abhijith Jinnu Structure)
+   ========================================================================== */
+.experience-list {
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    display: flex;
+}
+
+.experience-item {
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    display: flex;
+}
+
+.experience-avatar {
+    background-color: var(--capsule-bg);
+    color: #fff;
+    border-radius: 50%;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.experience-avatar.edu {
+    background-color: #242424;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.experience-content {
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+}
+
+.experience-header {
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    display: flex;
+    gap: 12px;
+}
+
+.experience-info {
+    flex-direction: column;
+    display: flex;
+}
+
+.role-text {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.company-text {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.experience-date-col {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.experience-date {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+}
+
+.experience-location {
+    display: block;
+    color: #666;
+    font-size: 0.78rem;
+    margin-top: 2px;
+}
+
+.experience-details {
+    margin-top: 12px;
+}
+
+.experience-bullets {
+    list-style: none;
+}
+
+.experience-bullets li {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 16px;
+}
+
+.experience-bullets li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--capsule-bg);
+}
+
+.edu-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-top: 8px;
+}
+
+/* ==========================================================================
+   Skills Section (White Pill Badges)
+   ========================================================================== */
+.skills-container {
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+    display: flex;
+}
+
+.skill-category {
+    flex-direction: column;
+    gap: 14px;
+    display: flex;
+}
+
+.skill-category-title {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: lowercase;
+}
+
+.skill-pills {
+    flex-wrap: wrap;
+    gap: 10px;
+    display: flex;
+}
+
+.skill-pill {
+    background-color: var(--text-primary); /* #f5f5f5 */
+    color: var(--bg-color); /* #0c0c0c */
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    display: inline-flex;
+    transition: transform 0.2s, background-color 0.2s;
+    user-select: none;
+}
+
+.skill-pill:hover {
+    transform: scale(1.06);
+    background-color: #ffffff;
+}
+
+/* ==========================================================================
+   Credentials List
+   ========================================================================== */
+.credentials-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cred-item {
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: border-color 0.2s;
+}
+
+.cred-item:hover {
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.cred-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.cred-issuer {
+    font-size: 0.72rem;
+    color: var(--capsule-bg);
+    font-weight: 500;
+}
+
+.cred-title {
+    font-size: 0.92rem;
+    color: var(--text-primary);
+    margin-top: 2px;
+}
+
+.cred-links-group {
+    display: flex;
+    gap: 10px;
+}
+
+.cred-link {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s, background 0.2s;
+    padding: 4px 10px;
+    background: #1e1e1e;
+    border-radius: 9999px;
+}
+
+.cred-link:hover {
+    color: #fff;
+    background: #2a2a2a;
+}
+
+.resume-cta-wrap {
+    margin-top: 36px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.resume-big-btn {
+    background-color: var(--text-primary);
+    color: var(--bg-color);
+    border-radius: 9999px;
+    padding: 12px 28px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.resume-big-btn:hover {
+    transform: scale(1.04);
+    background-color: #fff;
+}
+
+/* ==========================================================================
+   Contact Section
+   ========================================================================== */
+.contact-section {
+    text-align: center;
+    margin-top: 56px;
+    margin-bottom: 40px;
+}
+
+.contact-description {
+    max-width: 460px;
+    color: var(--text-secondary);
+    margin: 12px auto 32px auto;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.social-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.social-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #161616;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: transform 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.social-icon:hover {
+    transform: translateY(-2px);
+    border-color: var(--capsule-bg);
+    color: var(--capsule-bg);
+    background: #1c1c1c;
+}
+
+/* ==========================================================================
+   Fixed Bottom Capsule (Abhijith Jinnu Signature Bar)
+   ========================================================================== */
+.bottom-capsule {
+    background-color: var(--capsule-bg); /* #f16a4b */
+    z-index: 50;
+    border-radius: 64px;
+    gap: 8px;
+    padding: 10px 20px;
+    display: flex;
+    position: fixed;
+    bottom: 36px;
+    left: 50%;
+    transform: translate(-50%);
+    box-shadow: 0 10px 30px rgba(241, 106, 75, 0.35);
+}
+
+@keyframes capsuleSlideUp {
+    0% {
+        opacity: 0;
+        transform: translate(-50%) translateY(32px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%) translateY(0);
+    }
+}
+
+.capsule-link {
+    color: #fff;
+    border-radius: 9999px;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 16px;
+    font-size: 0.88rem;
+    font-weight: 400;
+    text-decoration: none;
+    transition: background-color 0.2s, opacity 0.2s;
+    display: flex;
+    position: relative;
+    user-select: none;
+}
+
+.capsule-link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.capsule-link.active {
+    background-color: rgba(255, 255, 255, 0.25);
+    font-weight: 500;
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    nav {
+        gap: 18px;
+    }
+
+    .hero-name-curve {
+        margin-bottom: -82px;
+    }
+
+    .bottom-capsule {
+        gap: 6px;
+        padding: 8px 14px;
+        bottom: 20px;
+    }
+
+    .capsule-link {
+        padding: 6px 10px;
+        font-size: 0.78rem;
+    }
+
+    .experience-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .experience-date-col {
+        text-align: left;
+    }
+
+    .filter-capsule {
+        padding: 6px 10px;
+    }
+
+    .filter-pill {
+        padding: 4px 10px;
+        font-size: 0.75rem;
+    }
+}
+
+/* ==========================================================================
+   Multilingual Preloader & Reload Animation (Exact abhijithjinnu.in specs)
+   ========================================================================== */
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    z-index: 99999;
     pointer-events: all;
+    background: transparent;
 }
 
-/* --- Metal Button Animations --- */
-.metal-btn-wrapper {
-  transition: all 250ms cubic-bezier(0.1, 0.4, 0.2, 1);
-  transform-origin: center center;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-}
-.metal-btn-wrapper:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-.metal-btn-wrapper:active {
-  transform: translateY(2.5px) scale(0.99);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-}
-.metal-btn-inner {
-  transition: all 250ms cubic-bezier(0.1, 0.4, 0.2, 1);
-  transform-origin: center center;
-}
-.metal-btn-wrapper:hover .metal-btn-inner {
-  filter: brightness(1.05);
-}
-.metal-btn-wrapper:active .metal-btn-inner {
-  filter: none;
-}
-.metal-btn {
-  transition: all 250ms cubic-bezier(0.1, 0.4, 0.2, 1);
-  transform-origin: center center;
-}
-.metal-btn-wrapper:active .metal-btn {
-  transform: scale(0.97);
-}
-.metal-btn-wrapper:hover .metal-btn {
-  filter: brightness(1.02);
-}
-.metal-btn-wrapper:active .metal-btn {
-  filter: none;
-}
-.metal-btn-shine {
-  opacity: 0;
-  transition: opacity 300ms;
-}
-.metal-btn-wrapper:active .metal-btn-shine {
-  opacity: 0.2;
+.loading-screen--exit {
+    pointer-events: none;
 }
 
-/* --- Shiny Download Resume Button Animations --- */
-@property --gradient-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
+.loading-panel {
+    flex: 1;
+    height: 100%;
+    background-color: var(--capsule-bg); /* #f16a4b */
+    will-change: transform;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@property --gradient-angle-offset {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
+.loading-screen--exit .loading-panel {
+    transform: translateY(-100%);
 }
 
-@property --gradient-percent {
-  syntax: "<percentage>";
-  initial-value: 5%;
-  inherits: false;
+.loading-screen--exit .loading-panel:nth-child(1) {
+    transition-delay: 0s;
 }
 
-@property --gradient-shine {
-  syntax: "<color>";
-  initial-value: white;
-  inherits: false;
+.loading-screen--exit .loading-panel:nth-child(2) {
+    transition-delay: 0.1s;
 }
 
-.shiny-cta {
-  --shiny-cta-bg: #000000;
-  --shiny-cta-bg-subtle: #1a1818;
-  --shiny-cta-fg: #ffffff;
-  --shiny-cta-highlight: rgb(99, 102, 241); /* Indigo 500 */
-  --shiny-cta-highlight-subtle: #a5b4fc;
-  --animation: gradient-angle linear infinite;
-  --duration: 3s;
-  --shadow-size: 2px;
-  --transition: 800ms cubic-bezier(0.25, 1, 0.5, 1);
-  
-  isolation: isolate;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  outline-offset: 4px;
-  padding: 0 2.5rem;
-  font-family: 'Instrument Sans', sans-serif;
-  font-size: 1.125rem;
-  line-height: 1.2;
-  font-weight: 700;
-  border: 1px solid transparent;
-  border-radius: 360px;
-  color: var(--shiny-cta-fg);
-  background: linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
-    conic-gradient(
-      from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
-      transparent,
-      var(--shiny-cta-highlight) var(--gradient-percent),
-      var(--gradient-shine) calc(var(--gradient-percent) * 2),
-      var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
-      transparent calc(var(--gradient-percent) * 4)
-    ) border-box;
-  box-shadow: inset 0 0 0 1px var(--shiny-cta-bg-subtle);
-  transition: var(--transition);
-  transition-property: --gradient-angle-offset, --gradient-percent, --gradient-shine;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 3.5rem;
+.loading-screen--exit .loading-panel:nth-child(3) {
+    transition-delay: 0.2s;
 }
 
-.shiny-cta::before,
-.shiny-cta::after,
-.shiny-cta span::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset-inline-start: 50%;
-  inset-block-start: 50%;
-  translate: -50% -50%;
-  z-index: -1;
+.loading-screen--exit .loading-panel:nth-child(4) {
+    transition-delay: 0.3s;
 }
 
-.shiny-cta:active {
-  translate: 0 1px;
+.loading-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: opacity 0.3s ease-out;
 }
 
-/* Dots pattern */
-.shiny-cta::before {
-  --size: calc(100% - var(--shadow-size) * 3);
-  --position: 2px;
-  --space: calc(var(--position) * 2);
-  width: var(--size);
-  height: var(--size);
-  background: radial-gradient(
-    circle at var(--position) var(--position),
-    white calc(var(--position) / 4),
-    transparent 0
-  ) padding-box;
-  background-size: var(--space) var(--space);
-  background-repeat: space;
-  mask-image: conic-gradient(
-    from calc(var(--gradient-angle) + 45deg),
-    black,
-    transparent 10% 90%,
-    black
-  );
-  border-radius: inherit;
-  opacity: 0.4;
-  z-index: -1;
+.loading-screen--exit .loading-content {
+    opacity: 0;
 }
 
-/* Inner shimmer */
-.shiny-cta::after {
-  --animation: shimmer linear infinite;
-  width: 100%;
-  aspect-ratio: 1;
-  background: linear-gradient(
-    -50deg,
-    transparent,
-    var(--shiny-cta-highlight),
-    transparent
-  );
-  mask-image: radial-gradient(circle at bottom, transparent 40%, black);
-  opacity: 0.6;
+.loading-screen__text {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(4rem, 12vw, 8rem);
+    color: #ffffff;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    margin: 0;
+    text-align: center;
 }
 
-.shiny-cta span {
-  z-index: 1;
-  display: flex;
-  align-items: center;
+.loading-screen__text--ml {
+    font-family: 'Noto Sans Malayalam', sans-serif;
+    font-size: clamp(2.75rem, 8vw, 5.5rem);
+    letter-spacing: -0.05em;
 }
 
-.shiny-cta span::before {
-  --size: calc(100% + 1rem);
-  width: var(--size);
-  height: var(--size);
-  box-shadow: inset 0 -1ex 2rem 4px var(--shiny-cta-highlight);
-  opacity: 0;
-  transition: opacity var(--transition);
-  animation: calc(var(--duration) * 1.5) breathe linear infinite;
+.loading-screen__text--hi,
+.loading-screen__text--mr {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: clamp(2.75rem, 8vw, 5.5rem);
+    letter-spacing: -0.05em;
 }
 
-/* Animate */
-.shiny-cta,
-.shiny-cta::before,
-.shiny-cta::after {
-  animation: var(--animation) var(--duration),
-    var(--animation) calc(var(--duration) / 0.4) reverse paused;
-  animation-composition: add;
+.loading-screen__text--es {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2.75rem, 8vw, 5.5rem);
+    letter-spacing: -0.05em;
 }
 
-.shiny-cta:is(:hover, :focus-visible) {
-  --gradient-percent: 20%;
-  --gradient-angle-offset: 95deg;
-  --gradient-shine: var(--shiny-cta-highlight-subtle);
+/* Page entrance animations on reload / load */
+body:not(.loading-done) .top-nav,
+body:not(.loading-done) .content-area,
+body:not(.loading-done) .bottom-capsule {
+    opacity: 0;
+    pointer-events: none;
 }
 
-.shiny-cta:is(:hover, :focus-visible),
-.shiny-cta:is(:hover, :focus-visible)::before,
-.shiny-cta:is(:hover, :focus-visible)::after {
-  animation-play-state: running;
+body:not(.loading-done) .content-area,
+body:not(.loading-done) .bottom-capsule,
+body:not(.loading-done) .hero-name-curve,
+body:not(.loading-done) .avatar-wrapper {
+    animation: none;
 }
 
-.shiny-cta:is(:hover, :focus-visible) span::before {
-  opacity: 1;
+body.loading-done .top-nav {
+    animation: 0.6s ease-out 0.1s both fadeSlideDown;
 }
 
-@keyframes gradient-angle {
-  to { --gradient-angle: 360deg; }
+body.loading-done .content-area {
+    animation: 0.55s ease-out 0.15s both fadeSlideUp;
 }
 
-@keyframes shimmer {
-  to { rotate: 360deg; }
+body.loading-done .hero-name-curve {
+    animation: 1.5s ease-out 0.2s both fadeIn;
 }
 
-@keyframes breathe {
-  from, to { scale: 1; }
-  50% { scale: 1.2; }
+body.loading-done .avatar-wrapper {
+    animation: 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s both avatarReveal;
+}
+
+body.loading-done .bottom-capsule {
+    animation: 0.6s ease-out 0.25s both capsuleSlideUp;
+}
+
+@keyframes fadeSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeSlideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-24px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes avatarReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.05);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

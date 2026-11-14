@@ -1,251 +1,344 @@
-/**
- * Global Portfolio Logic
- */
+/* ==========================================================================
+   CHAITANYA TORASKAR — PORTFOLIO INTERACTIONS
+   Interactive Anime Avatar, Star Shower Cascade, Filter Pills & Capsule Nav
+   ========================================================================== */
 
-// 1. Snowfall Effect
-function initializeSnow() {
-    const snowContainer = document.getElementById('snow-container');
-    if (!snowContainer) return;
+document.addEventListener("DOMContentLoaded", () => {
+    forceFreshFavicon();
+    initMultilingualPreloader();
+    initStarRainButton();
+    initInteractiveAvatar();
+    initCliBadge();
+    initProjectFilters();
+    initCapsuleScrollSpy();
+});
 
-    const FLAKE_COUNT = 85; 
+/* ==========================================================================
+   0. Multilingual Preloader & Reload Entrance (Exact abhijithjinnu.in Component)
+   ========================================================================== */
+function initMultilingualPreloader() {
+    const loadingScreen = document.getElementById("loadingScreen");
+    const loadingText = document.getElementById("loadingScreenText");
 
-    for (let i = 0; i < FLAKE_COUNT; i++) {
-        const snowflake = document.createElement('div');
-        snowflake.className = 'snowflake';
-        
-        // Randomize size, position, speed, delay, and opacity
-        const size = Math.random() * 3 + 2 + 'px';
-        snowflake.style.width = size;
-        snowflake.style.height = size;
-        snowflake.style.left = Math.random() * 100 + 'vw';
-        snowflake.style.animationDuration = Math.random() * 5 + 5 + 's';
-        snowflake.style.animationDelay = Math.random() * 10 + 's';
-        snowflake.style.opacity = Math.random() * 0.7 + 0.2;
+    if (!loadingScreen || !loadingText) {
+        document.body.classList.add("loading-done");
+        initBlurredStagger();
+        return;
+    }
 
-        snowContainer.appendChild(snowflake);
+    const greetings = [
+        { text: "Hello.", lang: "en" },
+        { text: "നമസ്കാരം.", lang: "ml" },
+        { text: "नमस्ते.", lang: "hi" },
+        { text: "नमस्कार.", lang: "mr" },
+        { text: "hola!", lang: "es" }
+    ];
+
+    let currentIndex = 0;
+
+    function showNextGreeting() {
+        if (currentIndex < greetings.length - 1) {
+            currentIndex++;
+            const g = greetings[currentIndex];
+            loadingText.textContent = g.text;
+            loadingText.className = "loading-screen__text loading-screen__text--" + g.lang;
+            setTimeout(showNextGreeting, 200);
+        } else {
+            // Stay on "hola!" for 380ms, then trigger exit slide
+            setTimeout(finishLoading, 380);
+        }
+    }
+
+    function finishLoading() {
+        // Trigger 4-column staggered exit slide
+        loadingScreen.classList.add("loading-screen--exit");
+
+        // Trigger page entrance animations
+        document.body.classList.add("loading-done");
+
+        // Subtitle starts staggering in right as the page reveals
+        setTimeout(() => {
+            initBlurredStagger();
+        }, 250);
+
+        // Remove loading screen from layout after slide completes
+        setTimeout(() => {
+            loadingScreen.style.display = "none";
+        }, 1100);
+    }
+
+    // "Hello." stays for 650ms, then cycles through the other languages
+    setTimeout(showNextGreeting, 650);
+}
+
+function forceFreshFavicon() {
+    try {
+        let link = document.querySelector("link[rel*='icon']");
+        if (!link) {
+            link = document.createElement("link");
+            link.rel = "icon";
+            document.head.appendChild(link);
+        }
+        link.type = "image/png";
+        link.href = "icon.png?v=" + new Date().getTime();
+    } catch (e) {}
+}
+
+/* ==========================================================================
+   1. Star Shower Cascade (Triggered ONLY by clicking the top nav ☆ button)
+   Rains 4-point Diamond Sparkle Stars in White & Coral matching reference
+   ========================================================================== */
+function initStarRainButton() {
+    const starBtn = document.getElementById("starTriggerBtn");
+    if (!starBtn) return;
+
+    starBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        triggerStarShower();
+    });
+}
+
+function triggerStarShower() {
+    const container = document.getElementById("rainingStarsContainer");
+    if (!container) return;
+
+    const btn = document.getElementById("starTriggerBtn");
+    if (btn) {
+        btn.classList.add("pulsing");
+        setTimeout(() => btn.classList.remove("pulsing"), 650);
+    }
+
+    const starCount = 34; // Generous burst of sparkle stars
+    const svgSparkle = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="currentColor"><path d="M12 0 Q12 12 24 12 Q12 12 12 24 Q12 12 0 12 Q12 12 12 0 Z"/></svg>';
+
+    for (let i = 0; i < starCount; i++) {
+        setTimeout(() => {
+            const star = document.createElement("div");
+            const isCoral = Math.random() > 0.48;
+            star.className = `falling-star ${isCoral ? "coral" : "white"}`;
+            star.innerHTML = svgSparkle;
+
+            const left = (Math.random() * 92 + 4).toFixed(2); // 4% to 96%
+            const size = Math.floor(Math.random() * 16) + 12; // 12px to 28px
+            const duration = (Math.random() * 1.6 + 2.6).toFixed(2); // 2.6s to 4.2s
+            const drift = (Math.random() * 60 - 30).toFixed(0); // -30px to +30px
+            const rot = (Math.random() * 720 - 360).toFixed(0); // rotation
+
+            star.style.left = `${left}%`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.animationDuration = `${duration}s`;
+            star.style.setProperty("--drift-x", `${drift}px`);
+            star.style.setProperty("--rot", `${rot}deg`);
+
+            container.appendChild(star);
+
+            star.addEventListener("animationend", () => {
+                star.remove();
+            });
+
+            setTimeout(() => {
+                if (star.parentNode) {
+                    star.remove();
+                }
+            }, (parseFloat(duration) + 0.3) * 1000);
+        }, i * 22);
     }
 }
 
-// 2. Scroll To Top Logic
-function handleScrollTop() {
-    const scrollBtn = document.getElementById('scrollTopBtn');
-    
-    // Show button when scrolled down 500px
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 500) {
-            scrollBtn.classList.add('active');
-        } else {
-            scrollBtn.classList.remove('active');
-        }
+/* ==========================================================================
+   2. Blurred Stagger Letter Animation (Subtitle)
+   ========================================================================== */
+function initBlurredStagger() {
+    const container = document.getElementById("heroSubtitleStagger");
+    if (!container) return;
+
+    const text = container.getAttribute("data-text") || container.textContent.trim();
+    container.innerHTML = "";
+
+    const chars = Array.from(text);
+    chars.forEach((char, index) => {
+        const span = document.createElement("span");
+        span.className = "stagger-char";
+        span.textContent = char === " " ? "\u00A0" : char;
+        span.style.transitionDelay = `${index * 22 + 80}ms`;
+        container.appendChild(span);
     });
 
-    // Smooth scroll to top on click
-    scrollBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            const spans = container.querySelectorAll(".stagger-char");
+            spans.forEach((s) => s.classList.add("visible"));
         });
     });
 }
 
-// 3. Setup WebGL Shader Background
-function initWebGLShader() {
-    const canvas = document.getElementById('webgl-shader-canvas');
-    if (!canvas || !window.THREE) return;
+/* ==========================================================================
+   3. Interactive Anime Avatar (Touch, Click & Hover Smile + Blush)
+   ========================================================================== */
+function initInteractiveAvatar() {
+    const avatar = document.getElementById("avatarInteractive");
+    if (!avatar) return;
 
-    let scene, camera, renderer, mesh, uniforms, animationId;
+    let touchTimeout;
 
-    const vertexShader = `
-      attribute vec3 position;
-      void main() {
-        gl_Position = vec4(position, 1.0);
-      }
-    `;
+    // Mobile touch interaction
+    avatar.addEventListener("touchstart", () => {
+        clearTimeout(touchTimeout);
+        avatar.classList.add("active");
+    }, { passive: true });
 
-    const fragmentShader = `
-      precision highp float;
-      uniform vec2 resolution;
-      uniform float time;
-      uniform float xScale;
-      uniform float yScale;
-      uniform float distortion;
+    avatar.addEventListener("touchend", () => {
+        // Keep the joyful smiling state visible for 1.8 seconds so the user can enjoy it
+        touchTimeout = setTimeout(() => {
+            avatar.classList.remove("active");
+        }, 1800);
+    }, { passive: true });
 
-      void main() {
-        vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);
-        
-        float d = length(p) * distortion;
-        
-        float rx = p.x * (1.0 + d);
-        float gx = p.x;
-        float bx = p.x * (1.0 - d);
-
-        float r = 0.05 / abs(p.y + sin((rx + time) * xScale) * yScale);
-        float g = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);
-        float b = 0.05 / abs(p.y + sin((bx + time) * xScale) * yScale);
-        
-        gl_FragColor = vec4(r, g, b, 1.0);
-      }
-    `;
-
-    scene = new THREE.Scene();
-    renderer = new THREE.WebGLRenderer({ canvas });
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setClearColor(new THREE.Color(0x000000));
-
-    camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, -1);
-
-    uniforms = {
-      resolution: { value: [window.innerWidth, window.innerHeight] },
-      time: { value: 0.0 },
-      xScale: { value: 1.0 },
-      yScale: { value: 0.5 },
-      distortion: { value: 0.05 },
-    };
-
-    const position = [
-      -1.0, -1.0, 0.0,
-       1.0, -1.0, 0.0,
-      -1.0,  1.0, 0.0,
-       1.0, -1.0, 0.0,
-      -1.0,  1.0, 0.0,
-       1.0,  1.0, 0.0,
-    ];
-
-    const positions = new THREE.BufferAttribute(new Float32Array(position), 3);
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute("position", positions);
-
-    const material = new THREE.RawShaderMaterial({
-      vertexShader,
-      fragmentShader,
-      uniforms: uniforms,
-      side: THREE.DoubleSide,
+    // Desktop click toggle
+    avatar.addEventListener("click", () => {
+        avatar.classList.toggle("active");
     });
 
-    mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
-
-    const handleResize = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      renderer.setSize(width, height, false);
-      uniforms.resolution.value = [width, height];
-    };
-
-    const animate = () => {
-      if (uniforms) uniforms.time.value += 0.01;
-      if (renderer && scene && camera) {
-        renderer.render(scene, camera);
-      }
-      animationId = requestAnimationFrame(animate);
-    };
-
-    handleResize();
-    animate();
-    window.addEventListener("resize", handleResize);
-}
-
-// 4. Infinite Grid Logic
-function initInfiniteGrid() {
-    const container = document.getElementById('infinite-grid-container');
-    const maskLayer = document.getElementById('grid-mask-layer');
-    const patternBase = document.getElementById('grid-pattern-base');
-    const patternActive = document.getElementById('grid-pattern-active');
-    
-    if (!container || !maskLayer || !patternBase || !patternActive) return;
-
-    let mouseX = 0;
-    let mouseY = 0;
-    let gridOffsetX = 0;
-    let gridOffsetY = 0;
-
-    const speedX = 0.5;
-    const speedY = 0.5;
-
-    // Track mouse
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        maskLayer.style.maskImage = `radial-gradient(300px circle at ${mouseX}px ${mouseY}px, black, transparent)`;
-        maskLayer.style.webkitMaskImage = `radial-gradient(300px circle at ${mouseX}px ${mouseY}px, black, transparent)`;
+    // Reset when clicking anywhere outside
+    document.addEventListener("click", (e) => {
+        if (!avatar.contains(e.target) && avatar.classList.contains("active")) {
+            avatar.classList.remove("active");
+        }
     });
-
-    // Animate grid
-    function animateGrid() {
-        gridOffsetX = (gridOffsetX + speedX) % 40;
-        gridOffsetY = (gridOffsetY + speedY) % 40;
-        
-        patternBase.setAttribute('x', gridOffsetX);
-        patternBase.setAttribute('y', gridOffsetY);
-        
-        patternActive.setAttribute('x', gridOffsetX);
-        patternActive.setAttribute('y', gridOffsetY);
-        
-        requestAnimationFrame(animateGrid);
-    }
-    
-    animateGrid();
 }
 
-// 5. Text Scramble Logic
-function initTextScramble() {
-    const container = document.getElementById('name-scramble-container');
-    if (!container) return;
+/* ==========================================================================
+   4. Copyable CLI Badge (% npx chaitanya -> Paste in terminal :3)
+   ========================================================================== */
+function initCliBadge() {
+    const badge = document.getElementById("cliBadge");
+    const copyBtn = document.getElementById("cliCopyBtn");
+    const notification = document.getElementById("copyNotification");
+    if (!badge) return;
 
-    const parts = container.querySelectorAll('.scramble-part');
-    const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*";
+    let notificationTimer;
 
-    let intervalId = null;
-    let isScrambling = false;
-
-    function scramble() {
-        if (isScrambling) return;
-        isScrambling = true;
-
-        let frame = 0;
-        let maxLen = 0;
-        parts.forEach(p => Math.max(maxLen, p.getAttribute('data-text').length));
-        
-        // Use average length based scale
-        const duration = 25; // number of frames
-
-        if (intervalId) clearInterval(intervalId);
-
-        intervalId = setInterval(() => {
-            frame++;
-            const progress = frame / duration;
-
-            parts.forEach(part => {
-                const text = part.getAttribute('data-text');
-                const revealedLength = Math.floor(progress * text.length);
-
-                const newText = text.split('').map((char, i) => {
-                    if (char === " ") return " ";
-                    if (i < revealedLength) return text[i];
-                    return CHARS[Math.floor(Math.random() * CHARS.length)];
-                }).join('');
-
-                part.textContent = newText;
-            });
-
-            if (frame >= duration) {
-                clearInterval(intervalId);
-                parts.forEach(part => {
-                    part.textContent = part.getAttribute('data-text');
-                });
-                isScrambling = false;
+    async function handleCopy(e) {
+        if (e) e.stopPropagation();
+        const textToCopy = "npx chaitanya";
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(textToCopy);
+            } else {
+                const ta = document.createElement("textarea");
+                ta.value = textToCopy;
+                ta.style.position = "fixed";
+                ta.style.opacity = "0";
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand("copy");
+                ta.remove();
             }
-        }, 30);
+
+            if (notification) {
+                clearTimeout(notificationTimer);
+                notification.classList.add("show");
+                notificationTimer = setTimeout(() => {
+                    notification.classList.remove("show");
+                }, 2200);
+            }
+        } catch (err) {
+            console.error("Clipboard copy failed:", err);
+        }
     }
 
-    container.addEventListener('mouseenter', scramble);
+    badge.addEventListener("click", handleCopy);
+    if (copyBtn) {
+        copyBtn.addEventListener("click", handleCopy);
+    }
 }
 
-// Initialize Logic
-document.addEventListener('DOMContentLoaded', () => {
-    initializeSnow();
-    handleScrollTop();
-    initWebGLShader();
-    initInfiniteGrid();
-    initTextScramble();
-});
+/* ==========================================================================
+   5. Highlights Category Filter Pills
+   ========================================================================== */
+function initProjectFilters() {
+    const pills = document.querySelectorAll(".filter-pill");
+    const cards = document.querySelectorAll(".highlight-card");
+    if (!pills.length || !cards.length) return;
+
+    pills.forEach((pill) => {
+        pill.addEventListener("click", () => {
+            const filter = pill.getAttribute("data-filter");
+
+            pills.forEach((p) => p.classList.remove("active"));
+            pill.classList.add("active");
+
+            cards.forEach((card) => {
+                const cat = card.getAttribute("data-category");
+                if (filter === "all" || cat === filter) {
+                    card.style.display = "flex";
+                    requestAnimationFrame(() => {
+                        card.style.opacity = "1";
+                        card.style.transform = "translateY(0)";
+                    });
+                } else {
+                    card.style.opacity = "0";
+                    card.style.transform = "translateY(6px)";
+                    setTimeout(() => {
+                        if (card.style.opacity === "0") {
+                            card.style.display = "none";
+                        }
+                    }, 200);
+                }
+            });
+        });
+    });
+}
+
+/* ==========================================================================
+   6. Bottom Capsule & Top Nav ScrollSpy
+   ========================================================================== */
+function initCapsuleScrollSpy() {
+    const sections = document.querySelectorAll("section[id]");
+    const capsuleLinks = document.querySelectorAll(".bottom-capsule .capsule-link");
+    const topNavLinks = document.querySelectorAll(".top-nav .nav-link");
+
+    if (!sections.length) return;
+
+    const sectionMap = {
+        "hero": "hero",
+        "projects": "projects",
+        "experience": "experience",
+        "skills": "skills",
+        "education": "experience",
+        "credentials": "experience",
+        "contact": "contact"
+    };
+
+    function onScroll() {
+        const scrollPosition = window.pageYOffset + 200;
+
+        sections.forEach((section) => {
+            const top = section.offsetTop;
+            const height = section.offsetHeight;
+            const rawId = section.getAttribute("id");
+
+            if (scrollPosition >= top && scrollPosition < top + height) {
+                const targetId = sectionMap[rawId] || rawId;
+
+                capsuleLinks.forEach((link) => {
+                    link.classList.remove("active");
+                    if (link.getAttribute("href") === `#${targetId}`) {
+                        link.classList.add("active");
+                    }
+                });
+
+                topNavLinks.forEach((link) => {
+                    link.classList.remove("active");
+                    if (link.getAttribute("href") === `#${targetId}`) {
+                        link.classList.add("active");
+                    }
+                });
+            }
+        });
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+}
