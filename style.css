@@ -1095,6 +1095,12 @@ nav {
 }
 
 /* Page entrance animations on reload / load */
+body:not(.loading-done) {
+    overflow: hidden !important;
+    height: 100vh !important;
+    scroll-behavior: auto !important;
+}
+
 body:not(.loading-done) .top-nav,
 body:not(.loading-done) .content-area,
 body:not(.loading-done) .bottom-capsule {

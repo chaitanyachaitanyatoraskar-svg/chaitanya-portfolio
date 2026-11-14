@@ -3,7 +3,31 @@
    Interactive Anime Avatar, Star Shower Cascade, Filter Pills & Capsule Nav
    ========================================================================== */
 
+// Force browser to disable automatic scroll restoration so reload ALWAYS starts at top
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+// Reset scroll instantly to (0, 0)
+window.scrollTo(0, 0);
+document.documentElement.scrollTop = 0;
+document.body.scrollTop = 0;
+
+// Strip hash from address bar on page load/reload so browser doesn't anchor-jump
+if (window.location.hash) {
+    history.replaceState(null, document.title, window.location.pathname + window.location.search);
+}
+
+// Reset scroll to top before unloading so next reload is guaranteed clean
+window.addEventListener('beforeunload', () => {
+    window.scrollTo(0, 0);
+});
+
 document.addEventListener("DOMContentLoaded", () => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
     forceFreshFavicon();
     initMultilingualPreloader();
     initStarRainButton();
@@ -11,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initCliBadge();
     initProjectFilters();
     initCapsuleScrollSpy();
+    initSmoothAnchorLinks();
 });
 
 /* ==========================================================================
@@ -19,6 +44,11 @@ document.addEventListener("DOMContentLoaded", () => {
 function initMultilingualPreloader() {
     const loadingScreen = document.getElementById("loadingScreen");
     const loadingText = document.getElementById("loadingScreenText");
+
+    // Lock scroll to top
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
 
     if (!loadingScreen || !loadingText) {
         document.body.classList.add("loading-done");
@@ -50,6 +80,11 @@ function initMultilingualPreloader() {
     }
 
     function finishLoading() {
+        // Guarantee top position right before reveal
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+
         // Trigger 4-column staggered exit slide
         loadingScreen.classList.add("loading-screen--exit");
 
@@ -341,4 +376,23 @@ function initCapsuleScrollSpy() {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+}
+
+/* ==========================================================================
+   7. Smooth Anchor Navigation (Without polluting URL with anchor jumps)
+   ========================================================================== */
+function initSmoothAnchorLinks() {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function(e) {
+            const targetId = this.getAttribute("href").substring(1);
+            if (!targetId) return;
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                e.preventDefault();
+                targetEl.scrollIntoView({ behavior: "smooth" });
+                // Cleanly update URL without causing reload jumps
+                history.pushState(null, null, "#" + targetId);
+            }
+        });
+    });
 }
