@@ -308,7 +308,8 @@ function initProjectFilters() {
 
             cards.forEach((card) => {
                 const cat = card.getAttribute("data-category");
-                if (filter === "all" || cat === filter) {
+                const matches = filter === "all" || (cat && cat.split(" ").includes(filter));
+                if (matches) {
                     card.style.display = "flex";
                     requestAnimationFrame(() => {
                         card.style.opacity = "1";
