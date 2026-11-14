@@ -144,42 +144,43 @@ function triggerStarShower() {
         setTimeout(() => btn.classList.remove("pulsing"), 650);
     }
 
-    const starCount = 34; // Generous burst of sparkle stars
-    const svgSparkle = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="currentColor"><path d="M12 0 Q12 12 24 12 Q12 12 12 24 Q12 12 0 12 Q12 12 12 0 Z"/></svg>';
+    const starCount = 35;
+    const fragment = document.createDocumentFragment();
+    const createdStars = [];
 
     for (let i = 0; i < starCount; i++) {
-        setTimeout(() => {
-            const star = document.createElement("div");
-            const isCoral = Math.random() > 0.48;
-            star.className = `falling-star ${isCoral ? "coral" : "white"}`;
-            star.innerHTML = svgSparkle;
+        const star = document.createElement("div");
+        const isCoral = Math.random() > 0.5;
+        const left = (Math.random() * 96 + 2).toFixed(1);
+        // Generously big diamond sparkle stars matching abhijithjinnu.in: 0.85rem to 2.35rem
+        const size = (Math.random() * 1.5 + 0.85).toFixed(2);
+        // Fast, linear hardware-accelerated fall: 1.6s to 3.2s
+        const duration = (Math.random() * 1.6 + 1.6).toFixed(2);
+        const delay = (Math.random() * 0.45).toFixed(2);
 
-            const left = (Math.random() * 92 + 4).toFixed(2); // 4% to 96%
-            const size = Math.floor(Math.random() * 16) + 12; // 12px to 28px
-            const duration = (Math.random() * 1.6 + 2.6).toFixed(2); // 2.6s to 4.2s
-            const drift = (Math.random() * 60 - 30).toFixed(0); // -30px to +30px
-            const rot = (Math.random() * 720 - 360).toFixed(0); // rotation
+        star.className = "falling-star";
+        star.textContent = "✦";
+        star.style.left = `${left}%`;
+        star.style.fontSize = `${size}rem`;
+        star.style.animationDuration = `${duration}s`;
+        star.style.animationDelay = `${delay}s`;
+        star.style.color = isCoral ? "var(--capsule-bg)" : "var(--text-primary)";
 
-            star.style.left = `${left}%`;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.animationDuration = `${duration}s`;
-            star.style.setProperty("--drift-x", `${drift}px`);
-            star.style.setProperty("--rot", `${rot}deg`);
-
-            container.appendChild(star);
-
-            star.addEventListener("animationend", () => {
-                star.remove();
-            });
-
-            setTimeout(() => {
-                if (star.parentNode) {
-                    star.remove();
-                }
-            }, (parseFloat(duration) + 0.3) * 1000);
-        }, i * 22);
+        fragment.appendChild(star);
+        createdStars.push(star);
     }
+
+    // 1 single DOM insertion per click -> zero reflow lag
+    container.appendChild(fragment);
+
+    // Clean batch removal after animations complete
+    setTimeout(() => {
+        createdStars.forEach((s) => {
+            if (s.parentNode) {
+                s.parentNode.removeChild(s);
+            }
+        });
+    }, 4200);
 }
 
 /* ==========================================================================
