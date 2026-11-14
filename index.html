@@ -123,14 +123,61 @@
             <div class="section-title-wrapper">
                 <h2 class="section-title">highlights! <span class="title-sparkle">✦</span></h2>
                 <p class="section-subtitle">some things i made because i could</p>
+            </div>
 
-                <!-- Filter Pills (Matching dev, film, ui/ux, art, blogs in Image 3) -->
-                <div class="filter-capsule">
-                    <button class="filter-pill active" data-filter="all">all</button>
-                    <button class="filter-pill" data-filter="dev">dev</button>
-                    <button class="filter-pill" data-filter="data">data &amp; bi</button>
-                    <button class="filter-pill" data-filter="ai">ai &amp; sys</button>
+            <!-- Interactive Carousel (Exact Abhijith Jinnu Component) -->
+            <div class="carousel-container">
+                <button class="carousel-nav prev" id="carouselPrevBtn" aria-label="Previous Project Highlight">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+
+                <div class="carousel-track-container" id="carouselTrackContainer">
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- Slide 1: Terminal Technologies -->
+                        <div class="carousel-slide">
+                            <a href="https://terminal-technologies.vercel.app" target="_blank" rel="noopener noreferrer" class="project-card" title="Terminal Technologies Live Demo">
+                                <img src="demos/demo-terminal-tech.png" alt="Terminal Technologies" loading="lazy">
+                            </a>
+                        </div>
+
+                        <!-- Slide 2: Student Management System -->
+                        <div class="carousel-slide">
+                            <a href="https://github.com/chaitanyachaitanyatoraskar-svg/student-management" target="_blank" rel="noopener noreferrer" class="project-card" title="Student Management System Demo">
+                                <img src="demos/demo-student-management.png" alt="Student Management System" loading="lazy">
+                            </a>
+                        </div>
+
+                        <!-- Slide 3: Power BI Business Intelligence Dashboard -->
+                        <div class="carousel-slide">
+                            <a href="#projects" class="project-card" title="Power BI Executive Analytics">
+                                <img src="demos/demo-bi-dashboard.png" alt="Power BI Executive Analytics Dashboard" loading="lazy">
+                            </a>
+                        </div>
+
+                        <!-- Slide 4: Community Time Bank AI -->
+                        <div class="carousel-slide">
+                            <a href="#projects" class="project-card" title="Community Time Bank AI">
+                                <img src="demos/demo-timebank-ai.png" alt="Community Time Bank AI" loading="lazy">
+                            </a>
+                        </div>
+                    </div>
                 </div>
+
+                <button class="carousel-nav next" id="carouselNextBtn" aria-label="Next Project Highlight">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Filter Pills (Matching dev, film, ui/ux, art, blogs in Image 3) -->
+            <div class="filter-capsule">
+                <button class="filter-pill active" data-filter="all">all</button>
+                <button class="filter-pill" data-filter="dev">dev</button>
+                <button class="filter-pill" data-filter="data">data &amp; bi</button>
+                <button class="filter-pill" data-filter="ai">ai &amp; sys</button>
             </div>
 
             <div class="highlights-list">
@@ -262,16 +309,19 @@
             </div>
         </section>
 
-        <!-- Skills Section (Abhijith Jinnu Pill Style) -->
+        <!-- Skills Section (Exact Reference with Sparkle Stars) -->
         <section id="skills" class="section-container skill-stack-section">
             <div class="section-title-wrapper">
-                <h2 class="section-title instrument-serif">skills &amp; tools</h2>
+                <h2 class="section-title">skill stack</h2>
             </div>
 
             <div class="skills-container">
                 <!-- Development Category -->
                 <div class="skill-category">
-                    <span class="skill-category-title">development</span>
+                    <div class="skill-category-title-wrap">
+                        <span class="skill-star">✦</span>
+                        <span class="skill-category-title">development</span>
+                    </div>
                     <div class="skill-pills">
                         <span class="skill-pill">Python</span>
                         <span class="skill-pill">Django</span>
@@ -292,7 +342,10 @@
 
                 <!-- Data Analytics Category -->
                 <div class="skill-category">
-                    <span class="skill-category-title">data &amp; analytics</span>
+                    <div class="skill-category-title-wrap">
+                        <span class="skill-star">✦</span>
+                        <span class="skill-category-title">data &amp; analytics</span>
+                    </div>
                     <div class="skill-pills">
                         <span class="skill-pill">Power BI</span>
                         <span class="skill-pill">Microsoft Excel</span>
@@ -306,18 +359,21 @@
                     </div>
                 </div>
 
-                <!-- AI & Creative Category -->
+                <!-- AI & Devops Category -->
                 <div class="skill-category">
-                    <span class="skill-category-title">ai &amp; creatives</span>
+                    <div class="skill-category-title-wrap">
+                        <span class="skill-star">✦</span>
+                        <span class="skill-category-title">ai &amp; devops</span>
+                    </div>
                     <div class="skill-pills">
-                        <span class="skill-pill">Git / GitHub</span>
+                        <span class="skill-pill">git/github</span>
                         <span class="skill-pill">VS Code</span>
-                        <span class="skill-pill">Cursor AI</span>
-                        <span class="skill-pill">Claude Code</span>
-                        <span class="skill-pill">Antigravity</span>
+                        <span class="skill-pill">cursor ai</span>
+                        <span class="skill-pill">claude code</span>
+                        <span class="skill-pill">antigravity</span>
                         <span class="skill-pill">Adobe Photoshop</span>
                         <span class="skill-pill">Adobe Premiere Pro</span>
-                        <span class="skill-pill">Prompt Engineering</span>
+                        <span class="skill-pill">prompt engineering</span>
                     </div>
                 </div>
             </div>
@@ -330,10 +386,10 @@
             </div>
 
             <div class="experience-list">
-                <!-- B.Sc. IT -->
+                <!-- B.Sc. IT (University of Mumbai) -->
                 <div class="experience-item">
-                    <div class="experience-avatar edu">
-                        <span>MU</span>
+                    <div class="experience-avatar edu" title="University of Mumbai">
+                        <img src="university-mumbai.svg" alt="University of Mumbai Logo" class="edu-logo-img">
                     </div>
                     <div class="experience-content">
                         <div class="experience-header">
@@ -350,10 +406,10 @@
                     </div>
                 </div>
 
-                <!-- HSC -->
+                <!-- HSC (SKC Jr. College) -->
                 <div class="experience-item">
-                    <div class="experience-avatar edu">
-                        <span>SK</span>
+                    <div class="experience-avatar edu" title="SKC Jr. College of Science, Commerce & Arts">
+                        <img src="skc-college.png" alt="SKC Jr. College Logo" class="edu-logo-img">
                     </div>
                     <div class="experience-content">
                         <div class="experience-header">

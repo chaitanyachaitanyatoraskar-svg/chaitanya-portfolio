@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     forceFreshFavicon();
     initMultilingualPreloader();
+    initHighlightsCarousel();
     initStarRainButton();
     initInteractiveAvatar();
     initCliBadge();
@@ -395,4 +396,85 @@ function initSmoothAnchorLinks() {
             }
         });
     });
+}
+
+/* ==========================================================================
+   8. Highlights Interactive Carousel (Next / Prev Navigation & Touch Swipe)
+   ========================================================================== */
+function initHighlightsCarousel() {
+    const track = document.getElementById("carouselTrack");
+    const prevBtn = document.getElementById("carouselPrevBtn");
+    const nextBtn = document.getElementById("carouselNextBtn");
+    const container = document.getElementById("carouselTrackContainer");
+
+    if (!track || !prevBtn || !nextBtn || !container) return;
+
+    let currentIndex = 0;
+    const slides = track.querySelectorAll(".carousel-slide");
+    const totalSlides = slides.length;
+
+    function getSlidesVisible() {
+        return window.innerWidth <= 640 ? 1 : 2;
+    }
+
+    function updateCarousel() {
+        const visible = getSlidesVisible();
+        const maxIndex = Math.max(0, totalSlides - visible);
+
+        if (currentIndex < 0) currentIndex = 0;
+        if (currentIndex > maxIndex) currentIndex = maxIndex;
+
+        const containerWidth = container.clientWidth;
+        const gap = 16;
+        const cardWidth = visible === 1 ? containerWidth : (containerWidth - gap) / 2;
+        const offset = currentIndex * (cardWidth + gap);
+
+        track.style.transform = `translateX(-${offset}px)`;
+
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex >= maxIndex;
+    }
+
+    prevBtn.addEventListener("click", () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+
+    nextBtn.addEventListener("click", () => {
+        const visible = getSlidesVisible();
+        const maxIndex = Math.max(0, totalSlides - visible);
+        if (currentIndex < maxIndex) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+
+    // Touch swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    container.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    container.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const threshold = 40;
+        const visible = getSlidesVisible();
+        const maxIndex = Math.max(0, totalSlides - visible);
+
+        if (touchStartX - touchEndX > threshold && currentIndex < maxIndex) {
+            currentIndex++;
+            updateCarousel();
+        } else if (touchEndX - touchStartX > threshold && currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    }, { passive: true });
+
+    window.addEventListener("resize", updateCarousel, { passive: true });
+    // Run after initial paint
+    setTimeout(updateCarousel, 100);
 }

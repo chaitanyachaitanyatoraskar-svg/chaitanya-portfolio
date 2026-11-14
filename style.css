@@ -519,6 +519,94 @@ nav {
 }
 
 /* ==========================================================================
+   Highlights Carousel (Exact Abhijith Jinnu Component)
+   ========================================================================== */
+.carousel-container {
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin-top: 28px;
+    margin-bottom: 28px;
+    display: flex;
+}
+
+.carousel-nav {
+    color: var(--text-primary);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    transition: opacity 0.2s, transform 0.2s;
+    display: flex;
+    flex-shrink: 0;
+}
+
+.carousel-nav:hover {
+    opacity: 0.7;
+    transform: scale(1.15);
+}
+
+.carousel-nav:disabled {
+    cursor: default;
+    opacity: 0.2;
+    transform: none;
+}
+
+.carousel-track-container {
+    overflow: hidden;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 16px;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 16px;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+}
+
+.carousel-slide {
+    flex: 0 0 calc((100% - 16px) / 2);
+    min-width: 0;
+}
+
+.project-card {
+    aspect-ratio: 220 / 160;
+    background-color: #1e1e24;
+    border-radius: 16px;
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+    border-color: rgba(241, 106, 75, 0.4);
+}
+
+.project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: inherit;
+}
+
+@media (max-width: 640px) {
+    .carousel-slide {
+        flex: 0 0 100%;
+    }
+}
+
+/* ==========================================================================
    Highlights / Projects
    ========================================================================== */
 .highlights-list {
@@ -641,8 +729,18 @@ nav {
 }
 
 .experience-avatar.edu {
-    background-color: #242424;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    padding: 3px;
+}
+
+.edu-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+    display: block;
 }
 
 .experience-content {
@@ -727,49 +825,65 @@ nav {
 }
 
 /* ==========================================================================
-   Skills Section (White Pill Badges)
+   Skills Section (White Pill Badges & Sparkle Stars)
    ========================================================================== */
 .skills-container {
     flex-direction: column;
-    gap: 32px;
+    gap: 36px;
     width: 100%;
     display: flex;
 }
 
 .skill-category {
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
     display: flex;
 }
 
+.skill-category-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.skill-star {
+    color: var(--capsule-bg); /* #f16a4b */
+    font-size: 1.15rem;
+    line-height: 1;
+    display: inline-block;
+}
+
 .skill-category-title {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
+    font-size: 1.12rem;
+    color: var(--text-primary);
+    font-weight: 500;
     text-transform: lowercase;
+    letter-spacing: -0.015em;
 }
 
 .skill-pills {
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
     display: flex;
 }
 
 .skill-pill {
-    background-color: var(--text-primary); /* #f5f5f5 */
-    color: var(--bg-color); /* #0c0c0c */
-    border-radius: 20px;
+    background-color: #ffffff;
+    color: #0c0c0c;
+    border-radius: 9999px;
     justify-content: center;
     align-items: center;
-    padding: 6px 14px;
-    font-size: 0.78rem;
+    padding: 7px 18px;
+    font-size: 0.92rem;
     font-weight: 500;
     display: inline-flex;
-    transition: transform 0.2s, background-color 0.2s;
+    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
     user-select: none;
 }
 
 .skill-pill:hover {
     transform: scale(1.06);
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25);
     background-color: #ffffff;
 }
 
