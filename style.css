@@ -30,6 +30,9 @@ html {
     scroll-behavior: smooth;
     background-color: var(--bg-color);
     color: var(--text-primary);
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
 }
 
 body {
@@ -37,6 +40,8 @@ body {
     color: var(--text-primary);
     font-family: var(--font-primary);
     min-height: 100vh;
+    width: 100%;
+    max-width: 100%;
     line-height: 1.5;
     display: flex;
     flex-direction: column;
@@ -448,19 +453,20 @@ nav {
 
 .more-copy-notification {
     position: absolute;
-    right: -176px;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    top: calc(100% + 10px);
+    transform: translateX(-50%) translateY(4px);
     background: #1a1a1a;
     color: var(--text-primary);
     border: 1px solid var(--capsule-bg);
     border-radius: 18px;
-    padding: 8px 14px;
+    padding: 7px 14px;
     font-size: 0.8rem;
     white-space: nowrap;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    visibility: hidden;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
     z-index: 100;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
     font-family: var(--font-inter);
@@ -469,12 +475,11 @@ nav {
 .more-copy-notification:after {
     content: "";
     position: absolute;
-    top: 50%;
-    left: -7px;
-    transform: translateY(-50%);
-    border: 7px solid transparent;
-    border-right-color: var(--capsule-bg);
-    border-left: none;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-bottom-color: var(--capsule-bg);
     width: 0;
     height: 0;
 }
@@ -482,12 +487,11 @@ nav {
 .more-copy-notification:before {
     content: "";
     position: absolute;
-    top: 50%;
-    left: -5px;
-    transform: translateY(-50%);
-    border: 6px solid transparent;
-    border-right-color: #1a1a1a;
-    border-left: none;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-bottom-color: #1a1a1a;
     width: 0;
     height: 0;
     z-index: 1;
@@ -495,7 +499,8 @@ nav {
 
 .more-copy-notification.show {
     opacity: 1;
-    transform: translateY(-50%) translateX(6px);
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }
 
 .hero-description {
@@ -506,6 +511,8 @@ nav {
     font-size: 1.1rem;
     line-height: 1.7;
     text-align: center;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 /* ==========================================================================
@@ -1069,44 +1076,306 @@ nav {
     100% { opacity: 1; }
 }
 
-/* Responsive */
-@media (max-width: 640px) {
-    nav {
-        gap: 18px;
+/* ==========================================================================
+   Comprehensive Mobile & Tablet Responsive Design
+   Optimized for 320px, 375px (iPhone SE), 390px, 414px, 430px & iPads
+   ========================================================================== */
+@media (max-width: 768px) {
+    .content-area {
+        padding-bottom: 180px;
+        padding-left: 14px;
+        padding-right: 14px;
     }
 
-    .hero-name-curve {
-        margin-bottom: -82px;
+    .section-container {
+        padding: 0 8px;
+        margin-top: 42px;
     }
 
     .bottom-capsule {
-        gap: 6px;
-        padding: 8px 14px;
+        width: calc(100% - 28px);
+        max-width: 390px;
+        justify-content: space-between;
+        gap: 2px;
+        padding: 7px 10px;
         bottom: 20px;
     }
 
     .capsule-link {
         padding: 6px 10px;
-        font-size: 0.78rem;
+        font-size: 0.8rem;
+    }
+
+    .bottom-vignette {
+        height: 120px;
+    }
+}
+
+@media (max-width: 640px) {
+    .top-nav {
+        padding: 24px 12px 16px 12px;
+    }
+
+    nav {
+        gap: 16px;
+    }
+
+    .nav-link {
+        font-size: 0.88rem;
+    }
+
+    .hero-section {
+        padding: 0 12px;
+        margin-top: 1.2rem;
+    }
+
+    .hero-name-curve {
+        margin-bottom: -82px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .who-am-i-curve {
+        margin-bottom: -72px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .curve-svg {
+        max-width: 250px;
+    }
+
+    .avatar-wrapper {
+        width: 110px;
+        height: 110px;
+    }
+
+    .avatar-wrapper img {
+        width: 110px;
+        height: 110px;
+    }
+
+    .hero-subtitle {
+        font-size: 1.05rem;
+        margin-top: 18px;
+    }
+
+    .hero-description {
+        font-size: 0.92rem;
+        line-height: 1.62;
+        margin-top: 22px;
+        padding: 0 12px;
+    }
+
+    .cli-badge {
+        padding: 6px 14px;
+        max-width: calc(100% - 24px);
+    }
+
+    .cli-text {
+        font-size: 0.85rem;
+    }
+
+    .carousel-slide {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+
+    .carousel-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .filter-capsule {
+        padding: 5px 8px;
+        gap: 4px;
+        max-width: calc(100% - 16px);
+    }
+
+    .filter-pill {
+        padding: 5px 10px;
+        font-size: 0.74rem;
+    }
+
+    .highlights-list {
+        gap: 20px;
+    }
+
+    .highlight-card {
+        padding: 20px 18px;
+        border-radius: 16px;
+    }
+
+    .highlight-title {
+        font-size: 1.25rem;
+    }
+
+    .highlight-description {
+        font-size: 0.88rem;
+        line-height: 1.55;
+    }
+
+    .experience-list {
+        gap: 24px;
+        margin-top: 20px;
+    }
+
+    .experience-item {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .experience-avatar {
+        width: 38px;
+        height: 38px;
     }
 
     .experience-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 4px;
+        gap: 3px;
     }
 
     .experience-date-col {
         text-align: left;
+        width: 100%;
     }
 
-    .filter-capsule {
-        padding: 6px 10px;
+    .experience-date {
+        text-align: left;
     }
 
-    .filter-pill {
-        padding: 4px 10px;
-        font-size: 0.75rem;
+    .experience-bullets {
+        padding-left: 14px;
+    }
+
+    .experience-bullet {
+        font-size: 0.86rem;
+        line-height: 1.55;
+    }
+
+    .skill-group {
+        margin-bottom: 22px;
+    }
+
+    .skill-group-title {
+        font-size: 0.92rem;
+        margin-bottom: 10px;
+    }
+
+    .skill-chip {
+        padding: 5px 12px;
+        font-size: 0.76rem;
+    }
+
+    .education-list {
+        gap: 24px;
+    }
+
+    .education-item {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .education-logo-container {
+        width: 38px;
+        height: 38px;
+    }
+
+    .education-degree {
+        font-size: 0.94rem;
+        line-height: 1.35;
+    }
+
+    .education-meta-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+
+    .education-date {
+        text-align: left;
+    }
+
+    .education-details {
+        font-size: 0.84rem;
+        line-height: 1.5;
+    }
+
+    .about-content {
+        padding: 0 16px;
+        gap: 18px;
+        margin-top: 24px;
+    }
+
+    .about-content p {
+        font-size: 0.9rem;
+        line-height: 1.62;
+    }
+
+    .about-image-wrapper {
+        border-radius: 12px;
+        margin: 10px 0 12px 0;
+    }
+
+    .about-image {
+        border-radius: 12px;
+    }
+
+    .bottom-capsule {
+        width: calc(100% - 24px);
+        max-width: 370px;
+        justify-content: space-between;
+        gap: 2px;
+        padding: 5px 6px;
+        bottom: 18px;
+    }
+
+    .capsule-link {
+        padding: 5px 6px;
+        font-size: 0.74rem;
+    }
+}
+
+@media (max-width: 400px) {
+    nav {
+        gap: 11px;
+    }
+
+    .nav-link {
+        font-size: 0.82rem;
+    }
+
+    .nav-star-trigger {
+        padding: 4px;
+    }
+
+    .bottom-capsule {
+        width: calc(100% - 16px);
+        max-width: 340px;
+        justify-content: space-evenly;
+        padding: 4px 4px;
+        bottom: 14px;
+        gap: 1px;
+    }
+
+    .capsule-link {
+        padding: 5px 4px;
+        font-size: 0.69rem;
+    }
+
+    .hero-name-curve {
+        margin-bottom: -76px;
+    }
+
+    .who-am-i-curve {
+        margin-bottom: -68px;
+    }
+
+    .curve-svg {
+        max-width: 230px;
     }
 }
 
