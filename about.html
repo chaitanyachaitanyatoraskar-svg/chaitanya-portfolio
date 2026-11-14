@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about me | Chaitanya Toraskar</title>
+
+    <!-- Meta Tags -->
+    <meta name="description"
+        content="Hey! I’m Chaitanya Toraskar, a Software Developer and Data Analyst. Learn more about my journey, philosophy, and passions.">
+    <meta name="author" content="Chaitanya Toraskar">
+    <meta name="robots" content="index, follow">
+
+    <!-- Favicon Suite (Cache-busted) -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="about me | Chaitanya Toraskar">
+    <meta property="og:description"
+        content="Software Developer and Data Analyst. Building products that look good and work well.">
+    <meta property="og:url" content="https://chaitanyachaitanyatoraskar-svg.github.io/chaitanya-portfolio/about.html">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts: Instrument Serif + Inter + Noto Sans Devanagari + Noto Sans Malayalam -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Malayalam:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="loading-done">
+    <!-- ✦ Raining Stars Container: Only rains when the ☆ star button is pressed ✦ -->
+    <div class="raining-stars-container" id="rainingStarsContainer"></div>
+
+    <!-- Top Navigation (Exact Abhijith Jinnu Pattern with Center ☆ Star Trigger) -->
+    <header class="top-nav">
+        <nav>
+            <a href="index.html" class="nav-link">home</a>
+            <a href="about.html" class="nav-link active">about</a>
+
+            <!-- Center Star Button that triggers the raining stars shower! -->
+            <button id="starTriggerBtn" class="nav-star-trigger" title="Press to rain stars!" aria-label="Make stars rain">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+            </button>
+
+            <a href="CHAITANYA-RESUME.pdf" target="_blank" rel="noopener noreferrer" class="nav-link">resume</a>
+            <a href="index.html#contact" class="nav-link">contact</a>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="content-area">
+        <div class="about-page">
+            <div class="hero-section">
+                <!-- Curved "Who am i?" text above avatar matching reference -->
+                <div class="hero-name-curve who-am-i-curve">
+                    <svg width="280" height="150" viewBox="0 0 280 150" class="curve-svg">
+                        <path id="curve-about" d="M 60,140 A 80,80 0 0,1 220,140" fill="transparent"></path>
+                        <text fill="var(--text-primary)" font-family="'Instrument Serif', Georgia, serif" font-style="italic" font-size="46" text-anchor="middle" letter-spacing="-0.07em">
+                            <textPath href="#curve-about" startOffset="50%">Who am i?</textPath>
+                        </text>
+                    </svg>
+                </div>
+
+                <!-- Avatar: Exact Character Image with Interactive Touch/Hover Smile & Blush -->
+                <div class="hero-avatar about-avatar">
+                    <div class="avatar-wrapper interactive-avatar" id="avatarInteractive" role="button" tabindex="0" aria-label="Interactive Avatar: Touch or hover to smile!">
+                        <img src="avatar.png" alt="Chaitanya Toraskar" width="122" height="122" class="avatar-img">
+                        <img src="blush.png" alt="Chaitanya Smiling &amp; Blushing" width="122" height="122" class="avatar-blush-img">
+                    </div>
+                </div>
+
+                <!-- About Subtitle -->
+                <h1 class="about-title">about me</h1>
+            </div>
+
+            <!-- About Body Content (Only & Only Information About Me) -->
+            <div class="about-content">
+                <p>Hey! I’m Chaitanya Toraskar, a Software Developer and Data Analyst with a passion for technology, problem-solving, and building things that make a difference.</p>
+
+                <p>I’m currently pursuing my Bachelor of Science in Information Technology (B.Sc. IT) at Vartak College, University of Mumbai, where I’m continuously strengthening my foundations in computer science, software engineering, databases, and data analytics.</p>
+
+                <p>My interests lie at the intersection of Software Development, Data Analytics, Artificial Intelligence, and Technology. I enjoy taking ideas from concept to implementation — whether that’s developing full-stack web applications, designing efficient database architectures, building interactive business intelligence dashboards, or experimenting with intelligent AI-powered systems.</p>
+
+                <p>My technical journey revolves around Python, Django, JavaScript, React, Next.js, SQL, MySQL, and Power BI. I also work with tools like Git, GitHub, Excel, and modern AI development platforms.</p>
+
+                <p>Beyond coding, I have a creative side. My experience with graphic design, video editing, and visual content creation has helped me develop an eye for design and user experience. I believe that great technology isn’t just about functionality; it’s also about how people interact with it.</p>
+
+                <!-- Personal High-Res Photo Matching Color Vibes -->
+                <div class="about-image-wrapper">
+                    <img src="chaitanya-about-graded.jpg" alt="Chaitanya Toraskar — Trekking in the Mountains" class="about-image" loading="lazy">
+                </div>
+
+                <p>I began gaining professional experience as a Teaching Faculty and IT Assistant at I-Tech Computer Institute, where I taught 50+ students, worked with Advanced Excel and database concepts, created digital learning materials, and developed automated spreadsheets. This experience strengthened my technical communication, problem-solving, and ability to explain complex concepts simply.</p>
+
+                <p>I’m particularly fascinated by the possibilities of Artificial Intelligence and automation. I enjoy exploring emerging technologies, building experimental projects, understanding how systems work behind the scenes, and pushing beyond what I already know.</p>
+
+                <p>I believe in learning by building. Every project is an opportunity to explore a new technology, solve a real-world problem, and become a better developer.</p>
+
+                <p>My goal is to grow into a well-rounded technology professional, explore opportunities beyond my current boundaries, and build meaningful products that combine software engineering, data, and intelligent systems.</p>
+
+                <p class="about-signoff">Always curious. Always building. Always learning.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Vignette Fade -->
+    <div class="bottom-vignette"></div>
+
+    <!-- Fixed Bottom Capsule (Signature Navigation of Abhijith Jinnu) -->
+    <div class="bottom-capsule">
+        <a href="index.html#hero" class="capsule-link">home</a>
+        <a href="index.html#projects" class="capsule-link">projects</a>
+        <a href="index.html#experience" class="capsule-link">experience</a>
+        <a href="index.html#skills" class="capsule-link">skills</a>
+        <a href="index.html#contact" class="capsule-link">contact</a>
+    </div>
+
+    <!-- Script File -->
+    <script src="script.js"></script>
+</body>
+
+</html>
